@@ -6,21 +6,18 @@
             id="asset_management_main_menu"
             sequence="31"
             groups="bt_asset_management.group_asset_management_user"/>
-
         <menuitem
             id= "asset_managment_main_submenu"
             parent= "asset_management_main_menu"
             sequence= "1"
             name= "Asset Management"
             />
-
         <menuitem
             id= "asset_managment_main_submenu1"
             parent= "asset_management_main_menu"
             sequence= "3"
             name = "Asset Location"
             />
-
         <menuitem
         	id= "asset_managment_main_submenu3"
         	parent= "asset_management_main_menu"
@@ -43,17 +40,9 @@
                     <field name="purchase_value"/>
                     <field name="model_name"/>
                     <field name="serial_no"/>
-
                 	<templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
-	                          <!--  <div class="o_kanban_image o_kanban_content">
-	                             	<t t-if="record.image.raw_value">
-	                                   <img t-att-src="kanban_image('bt.asset', 'image_128', record.id.raw_value)" alt="Logo"/>
-	                                </t>
-	                            </div>  -->
-
-
 								 <div class="o_kanban_image">
                                     <img t-att-src="kanban_image('bt.asset', 'image_128', record.id.raw_value)" alt="Logo" class="o_image_64_contain"/>
                                 </div>
@@ -91,7 +80,7 @@
                   	<field name="warranty_end"/>
                 </tree>
             </field>
-        </record>
+        </record>  
 
         <record id="bt_asset_management_asset_search" model="ir.ui.view">
             <field name="name">bt.asset.search.view</field>
@@ -118,8 +107,6 @@
                 </search>
             </field>
         </record>
-
-
 
         <record id="bt_asset_management_asset_form" model="ir.ui.view">
             <field name="name">bt.asset.form</field>
@@ -171,7 +158,6 @@
                                     </div>
 									<field name="user_id"/>
                             	</group>
-
                             </group>
                             <notebook>
 	                            <page string="Warranty">
@@ -273,7 +259,6 @@
                 </tree>
             </field>
         </record>
-
         <record id="bt_asset_management_asset_category_search" model="ir.ui.view">
             <field name="name">bt.asset.category.search</field>
             <field name="model">bt.asset.category</field>
@@ -283,7 +268,6 @@
                 </search>
             </field>
         </record>
-
         <record id="bt_asset_management_asset_category_form" model="ir.ui.view">
             <field name="name">bt.asset.category.form</field>
             <field name="model">bt.asset.category</field>
@@ -305,7 +289,6 @@
                 </form>
             </field>
          </record>
-
 		<record id="action_bt_asset" model="ir.actions.act_window">
 	            <field name="name">Assets</field>
 	            <field name="type">ir.actions.act_window</field>
@@ -318,11 +301,9 @@
 	                </p>
 	            </field>
 	        </record>
-
 	        <menuitem action="action_bt_asset" name="Asset"
 	            id="menu_action_bt_asset" parent="asset_managment_main_submenu"
 	            sequence="12"/>
-
 	    <record id="action_bt_asset_location" model="ir.actions.act_window">
 	            <field name="name">Asset Location</field>
 	            <field name="type">ir.actions.act_window</field>
@@ -335,11 +316,9 @@
 	                </p>
 	            </field>
 	        </record>
-
 	   <menuitem action="action_bt_asset_location" name="Asset Location"
 	            id="menu_action_bt_asset_location" parent="asset_managment_main_submenu"
 	            sequence="13"/>
-
 	   <record id="action_bt_asset_category" model="ir.actions.act_window">
 	            <field name="name">Asset Category</field>
 	            <field name="type">ir.actions.act_window</field>
@@ -356,6 +335,5 @@
       <menuitem action="action_bt_asset_category" name="Asset Category"
 	            id="menu_action_bt_asset_category" parent="asset_managment_main_submenu"
 	            sequence="14"/>
-
 </odoo>
 	
