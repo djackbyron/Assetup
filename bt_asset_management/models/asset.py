@@ -42,6 +42,8 @@ class BtAsset(models.Model):
     economical_asset_amount = fields.Float(string="Economical Dep. Amount",
                                            compute="_compute_economical_asset_amount")
     fiscal_asset_id = fields.Many2one(comodel_name='account.asset', string='Fiscal Depreciation')
+    fiscal_asset_amount = fields.Float(string="Fiscal Dep. Amount",
+                                           compute="_compute_economical_asset_amount")
 
     def _compute_economical_asset_amount(self):
         for asset in self:
@@ -55,6 +57,17 @@ class BtAsset(models.Model):
                     asset.economical_asset_amount = asset.economical_asset_id.value_residual
             else:
                 asset.economical_asset_amount = 0.0
+
+            if asset.fiscal_asset_id:
+                if asset.fiscal_asset_id.depreciation_move_ids:
+                    closets_date_move_id = self.env['account.move'].search([('state', 'not in', ('posted', 'cancel')), (
+                        'id', 'in', asset.fiscal_asset_id.depreciation_move_ids.ids), ('date', '>=', date.today())],
+                                                                           order='date asc', limit=1)
+                    asset.fiscal_asset_amount = closets_date_move_id and closets_date_move_id.asset_remaining_value or 0.0
+                else:
+                    asset.fiscal_asset_amount = asset.fiscal_asset_id.value_residual
+            else:
+                asset.fiscal_asset_amount = 0.0
 
     @api.model
     def create(self, vals):
