@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document_inherit_asset_management" inherit_id="account.report_invoice_document">
+            <xpath expr="//th[@name='th_taxes']/span" position="replace">
+                <span>OB</span>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']/tbody" position="after">
+                <t t-if="o.payment_id">
+                    <tbody>
+                        <td colspan="4">
+                            <span>Payment Method</span>
+                        </td>
+                        <td t-attf-class="text-right">
+                            <span t-field="o.payment_id.name"/>
+                        </td>
+                    </tbody>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>
