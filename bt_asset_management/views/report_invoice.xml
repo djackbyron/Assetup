@@ -5,16 +5,37 @@
             <xpath expr="//th[@name='th_taxes']/span" position="replace">
                 <span>OB</span>
             </xpath>
-            <xpath expr="//table[@name='invoice_line_table']/tbody" position="after">
-                <t t-if="o.payment_id">
-                    <tbody>
-                        <td colspan="4">
-                            <span>Payment Method</span>
-                        </td>
-                        <td t-attf-class="text-right">
-                            <span t-field="o.payment_id.name"/>
-                        </td>
-                    </tbody>
+            <xpath expr="//t[@t-if='print_with_payments']" position="replace">
+                <t t-if="print_with_payments">
+                    <t t-if="o.payment_state != 'invoicing_legacy'">
+                        <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
+                        <t t-foreach="payments_vals" t-as="payment_vals">
+                            <tr>
+                                <td>
+                                    <i class="oe_form_field text-right oe_payment_label">Paid on
+                                        <t t-esc="payment_vals['date']"
+                                           t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                                        Paid With
+                                        <t t-esc="payment_vals['payment_method_name']"/>
+                                    </i>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="payment_vals['amount']"
+                                          t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="len(payments_vals) &gt; 0">
+                            <tr class="border-black">
+                                <td>
+                                    <strong>Amount Due</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_residual"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
                 </t>
             </xpath>
         </template>
